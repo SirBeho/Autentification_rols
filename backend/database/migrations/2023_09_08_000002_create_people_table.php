@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('phone');
-            $table->date('borth');
+            $table->date('born');
             $table->timestamps();
             $table->unsignedBigInteger('create_by')->nullable()->default(null);
             $table->unsignedBigInteger('update_by')->nullable()->default(null);

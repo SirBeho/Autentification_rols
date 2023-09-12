@@ -18,8 +18,8 @@ class PersonController extends Controller
     public function index()
     {
         $Person = Person::where('status', 1)->get();
-        $Person->load('create_by');
-        $Person->load('update_by');
+        $Person->load('create_by.person');
+        $Person->load('update_by.person');
 
         return $Person;
     }
@@ -61,7 +61,7 @@ class PersonController extends Controller
                 'name'=> 'required',
                 'lastname'=> 'required', 
                 'phone'=> 'required',
-                'borth'=> 'required|date',
+                'born'=> 'required|date',
                 'create_by'=>'exists:users,id',
                 'update_by'=> 'exists:users,id'
             ]);
@@ -101,7 +101,7 @@ class PersonController extends Controller
                 'name'=> 'required',
                 'lastname'=> 'required', 
                 'phone'=> 'required',
-                'borth'=> 'required|date',
+                'born'=> 'required|date',
                 'create_by'=>'exists:users,id',
                 'update_by'=> 'exists:users,id'
             ]);

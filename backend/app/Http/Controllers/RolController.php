@@ -18,8 +18,8 @@ class RolController extends Controller
     public function index()
     {
         $Rol = Rol::where('status', 1)->get();
-        $Rol->load('create_by');
-        $Rol->load('update_by');
+        $Rol->load('create_by.person');
+        $Rol->load('update_by.person');
         return $Rol;
     }
 

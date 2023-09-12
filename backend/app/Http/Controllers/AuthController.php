@@ -21,8 +21,20 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
 
+        $validator = validator($request->all(), [
+            'email'=> 'required|email',
+            'password'=> 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+
+
+
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Usuario o contraseña incorrecta'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -30,8 +42,11 @@ class AuthController extends Controller
     }
 
     public function me()
-    {
-        return response()->json(auth()->user());
+    {   
+        $data = auth()->user();
+        $data->load('person'); 
+    
+        return response()->json(['message' => $data]);
     }
 
     public function logout()

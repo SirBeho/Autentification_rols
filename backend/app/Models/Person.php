@@ -17,7 +17,7 @@ class Person extends Model
         'name',
         'lastname',
         'phone', 
-        'borth' ,     
+        'born' ,     
         'create_by',      
         'update_by' 
     ];

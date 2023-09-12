@@ -21,7 +21,7 @@ class PersonFactory extends Factory
             'name' => fake()->firstName(),
             'lastname' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
-            'borth' => fake()->date(), 
+            'born' => fake()->date(), 
             'create_by'=> optional(User::inRandomOrder()->first())->id,   
             'update_by'=> optional(User::inRandomOrder()->first())->id
 

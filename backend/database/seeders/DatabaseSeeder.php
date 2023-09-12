@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
             'name' => "benjamin",
             'lastname' => "tavarez",
             'phone' => "8098892235",
-            'borth' =>"1998/03/13",
+            'born' =>"1998/03/13",
             
         ]);
 
         User::factory()->create([
             'person_id'=> Person::inRandomOrder()->first()->id,
             'email' => 'admin@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'admin',
           
         ]);
 

@@ -3,7 +3,7 @@ import { Link,useNavigate } from "react-router-dom";
 import  Autentification  from "../Layout/ValidationToken";
 import axios from "axios";
 
-function Rol() {
+function Log() {
     let $i = 1;
     const [datos, setDatos] = useState(null);
     const navigatetoUrl = useNavigate();
@@ -37,7 +37,7 @@ function Rol() {
 
 
         axios
-        .get("http://localhost:8000/api/rols")
+        .get("http://localhost:8000/api/rolpage")
         .then((response) => {
           console.log(response.data)
           setDatos(response.data);
@@ -48,9 +48,6 @@ function Rol() {
             JSON.parse(error.request.response);
           setMsj(data);
         });
-
-
-     
       }, []);
 
 
@@ -58,10 +55,10 @@ function Rol() {
         console.log(datos)
       }, [datos]);
     return (
-        <div className="flex flex-col w-full items-center">
+        <div className="flex flex-col items-center w-full px-8">
         
-            <section className="container px-4 mx-auto">
-                <div className="flex flex-col mt-10 w-11/12">
+        <section className="container px-4 mx-auto">
+                <div className="flex flex-col mt-10 ">
                     <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
@@ -85,18 +82,23 @@ function Rol() {
                                                     </svg>
                                                 </button>
                                             </th>
-
                                             <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
                                                 Name
                                             </th>
-
                                             <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                                                Create by
+                                                Enlaced To
                                             </th>
                                             <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                                                Update by
+                                                page Name
+                                            </th>
+                                            <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
+                                                page link
                                             </th>
 
+                                            <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
+                                                Rol
+                                            </th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
@@ -106,10 +108,13 @@ function Rol() {
                                     datos.map((item,index) => (
                                     <tr key={item.id}>
                                         <td className="text-center">{index+1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.create_by.person.name +" "+ item.create_by.person.lastname }</td>
-                                        <td>{item.update_by.person.name +" "+ item.update_by.person.lastname }</td>
-                                    </tr>
+                                        <td>{item.description}</td>
+                                        <td>{item.enlaced ? item.enlaced.description : "Principal"}</td>
+                                        <td>{item.page ? item.page.name : ""}</td>
+                                        <td>{item.page ? item.page.url : ""}</td>
+                                        <td>{item.rol.name}</td>
+                                       
+                                       </tr>
                                     ))):(<tr className="w-full">Loaging ... </tr>)
                                 
                                 }   </tbody>
@@ -124,4 +129,4 @@ function Rol() {
     );
 }
 
-export default Rol;
+export default Log;

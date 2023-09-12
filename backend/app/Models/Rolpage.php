@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rolpage extends Model
 {
@@ -18,6 +19,7 @@ class Rolpage extends Model
         'rol_id',
         'description',    
         'create_by',      
+        'enlaced_to',      
         'update_by' 
     ];
 
@@ -43,6 +45,16 @@ class Rolpage extends Model
     public function update_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'update_by');
+    }
+
+    public function enlaced(): BelongsTo
+    {
+        return $this->belongsTo(Rolpage::class, 'enlaced_to');
+    }
+
+    public function linkeds(): HasMany
+    {
+        return $this->HasMany(Rolpage::class, 'enlaced_to');
     }
 
     

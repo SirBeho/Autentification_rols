@@ -20,8 +20,10 @@ class RolPageController extends Controller
         $RolPage = RolPage::where('status', 1)->get();
         $RolPage->load('page');
         $RolPage->load('rol');
+        $RolPage->load('enlaced.page');
         $RolPage->load('create_by');
         $RolPage->load('update_by');
+        $RolPage->load('linkeds.page');
         return $RolPage;
     }
 
@@ -41,6 +43,7 @@ class RolPageController extends Controller
             $RolPage = RolPage::findOrFail($id);
             $RolPage->load('page');
             $RolPage->load('rol');
+            $RolPage->load('enlaced');
             $RolPage->load('create_by');
             $RolPage->load('update_by');
 

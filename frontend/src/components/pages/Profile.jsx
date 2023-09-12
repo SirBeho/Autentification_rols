@@ -1,6 +1,6 @@
  import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import  Autentification  from "./Layout/ValidationToken";
+import  Autentification  from "../Layout/ValidationToken";
 import axios from "axios";
 
 export default function Profile() {

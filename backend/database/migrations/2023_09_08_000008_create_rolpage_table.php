@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('rol_page', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('page_id')->nullable()->default(null);
             $table->unsignedBigInteger('rol_id');
+            $table->unsignedBigInteger('enlaced_to')->nullable()->default(null);
             $table->string('description');
             $table->timestamps();
             $table->unsignedBigInteger('create_by');
@@ -24,7 +25,8 @@ return new class extends Migration
             $table->foreign('update_by')->references('id')->on('users');
             $table->foreign('page_id')->references('id')->on('pages');
             $table->foreign('rol_id')->references('id')->on('rols');
-            $table->index(['page_id', 'rol_id']);
+            $table->foreign('enlaced_to')->references('id')->on('rol_page');
+            // $table->index(['page_id', 'rol_id']);
             
         });
     }

@@ -13,6 +13,6 @@ class RolPageSeeder extends Seeder
      */
     public function run(): void
     {
-        Rolpage::factory(10)->create();
+        Rolpage::factory(2)->create();
     }
 }

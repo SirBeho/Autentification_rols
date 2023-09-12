@@ -22,7 +22,7 @@ class RolPageFactory extends Factory
     {
         return [
 
-            'page_id'=>Page::inRandomOrder()->first()->id,
+            // 'page_id'=>Page::inRandomOrder()->first()->id,
             'rol_id'=>Rol::inRandomOrder()->first()->id,
             'description' => fake()->text($maxNbChars = 20), 
             'create_by'=> User::inRandomOrder()->first()->id,     

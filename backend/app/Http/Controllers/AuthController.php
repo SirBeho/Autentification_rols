@@ -2,11 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
+
 
 class AuthController extends Controller
 {
@@ -36,6 +32,9 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Usuario o contraseña incorrecta'], 401);
         }
+        
+        $log = new LogController();
+        $log->create("Ha ingresado");
 
         return $this->respondWithToken($token);
 
@@ -45,6 +44,7 @@ class AuthController extends Controller
     {   
         $data = auth()->user();
         $data->load('person'); 
+        $data->load('rol'); 
     
         return response()->json(['message' => $data]);
     }

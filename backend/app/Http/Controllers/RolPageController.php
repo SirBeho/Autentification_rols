@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rol;
 use App\Models\RolPage;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -64,9 +65,11 @@ class RolPageController extends Controller
         try {
 
             $validator = validator($request->all(), [
-                'description'=> 'required',
+                'name'=> 'required',
+                'enlaced_to'=> 'required|exists:pages,id',
                 'page_id'=> 'required|exists:pages,id',
                 'rol_id'=> 'required|exists:rols,id',
+                'order'=> 'required|numeric',
                 'create_by'=>'exists:users,id',
                 'update_by'=> 'exists:users,id'
                
@@ -77,10 +80,16 @@ class RolPageController extends Controller
             }
 
             
-            RolPage::create($request->all());
-           
-            return response()->json(['msj' => 'RolPage creado correctamente'], 200);
-        
+            $RolPage = RolPage::create($request->all());
+
+            
+            $RolPage->load('page');
+            $RolPage->load('rol');
+
+            $log = new LogController();
+            $respuesta = $log->create("Dio permiso a rol ".$RolPage->rol->name." para acceder a ".$RolPage->page->url);
+            return response()->json(['msj' => 'Asignacion creada correctamente','log' => $respuesta->original['msj']], 200);
+
         } catch (QueryException $e) {
             $errormsj = $e->getMessage();
         
@@ -101,12 +110,16 @@ class RolPageController extends Controller
 
     public function update($id,Request $request)
     {
-        
+       
+
+
         try {
             $validator = validator($request->all(), [
-                'description'=> 'required',
+                'name'=> 'required',
+                'enlaced_to'=> 'required|exists:pages,id',
                 'page_id'=> 'required|exists:pages,id',
                 'rol_id'=> 'required|exists:rols,id',
+                'order'=> 'required|numeric',
                 'create_by'=>'exists:users,id',
                 'update_by'=> 'exists:users,id'
             ]);

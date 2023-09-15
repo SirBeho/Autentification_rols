@@ -17,7 +17,9 @@ class LogController extends Controller
      */
     public function index()
     {
+
         return Log::with('user.rol', 'user.person')->get();
+
     }
 
     
@@ -45,11 +47,19 @@ class LogController extends Controller
 
     }
 
-    
-    public function create(Request $request)
+    public function create($descripcion)
     {
 
-       
+        $request = new Request();
+        
+        $request->merge([
+            'description' => $descripcion,
+            'user_id' => auth()->id(),
+            'ip' => request()->ip(),
+            'so' => request()->header('X-User-OS'),
+            'browser' => request()->header('X-User-Browser'),
+        ]);
+    
         try {
 
             $validator = validator($request->all(), [
@@ -65,7 +75,8 @@ class LogController extends Controller
             }
             Log::create($request->all());
            
-            return response()->json(['msj' => 'Log creado correctamente'], 200);
+          
+            return response()->json(['msj' => $descripcion], 200);
         
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'No se pudo registrar el Log'.$e->getMessage()], 404);

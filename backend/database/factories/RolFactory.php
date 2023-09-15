@@ -18,7 +18,7 @@ class RolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name'=>fake()->unique()->randomElement(['Admin',"Management","Marketing"]),
             'create_by'=> User::inRandomOrder()->first()->id,    
             'update_by'=> User::inRandomOrder()->first()->id   
         ];

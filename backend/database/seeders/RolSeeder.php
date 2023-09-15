@@ -13,6 +13,23 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
-        Rol::factory(3)->create();
+        // Rol::factory(3)->create();
+
+        Rol::factory()->create([
+            'name'=>'Admin',
+            'create_by'=> 1,      
+            'update_by'=> 1 
+        ]);
+        Rol::factory()->create([
+            'name'=>'Management',
+            'create_by'=> 1,      
+            'update_by'=> 1 
+        ]);
+        Rol::factory()->create([
+            'name'=>'Marketing',
+            'create_by'=> 1,      
+            'update_by'=> 1 
+        ]);
+
     }
 }

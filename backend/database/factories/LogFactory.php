@@ -19,11 +19,11 @@ class LogFactory extends Factory
     {
         return [
             
-            'description' => fake()->text($maxNbChars = 10),
+            'description' => fake()->text($maxNbChars = 50),
             'user_id'=>User::inRandomOrder()->first()->id,
             'ip' => fake()->ipv4(), 
-            'so' => fake()->safeColorName(), 
-            'browser' => fake()->userAgent()
+            'so' =>fake()->randomElement(['Microsoft Windows', 'GNU/Linux','MacOS','Android ','iOS']),
+            'browser'=>fake()->randomElement(['Mozilla/5.0', 'Chrome/83.0.4808.69','Opera/8.34','Brave','Microsoft Edge','Microsoft Edge']),
         ];
     }
 }

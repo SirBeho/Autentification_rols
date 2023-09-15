@@ -70,8 +70,11 @@ class PageController extends Controller
 
             
             Page::create($request->all());
-           
-            return response()->json(['msj' => 'Page creada correctamente'], 200);
+
+            $log = new LogController();
+            $respuesta = $log->create("Creo la pagina ".$request->name);
+            return response()->json(['msj' => 'Pagina creada correctamente','log' => $respuesta->original['msj']], 200);
+
         
         } catch (QueryException $e) {
             $errormsj = $e->getMessage();

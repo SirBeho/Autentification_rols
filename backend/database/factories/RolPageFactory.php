@@ -22,11 +22,17 @@ class RolPageFactory extends Factory
     {
         return [
 
-            // 'page_id'=>Page::inRandomOrder()->first()->id,
+            'name' => fake()->company(),
+            'enlaced_to'=>null,
+            'page_id'=>null,
             'rol_id'=>Rol::inRandomOrder()->first()->id,
-            'description' => fake()->text($maxNbChars = 20), 
+            'order'=>fake()->randomElement(['1', '2', '3', '4', '5', '6']),
             'create_by'=> User::inRandomOrder()->first()->id,     
-            'update_by'=> User::inRandomOrder()->first()->id,   
+            'update_by'=> User::inRandomOrder()->first()->id,  
+            
+            
+
+
         ];
     }
 }

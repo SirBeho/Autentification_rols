@@ -26,20 +26,21 @@ class DatabaseSeeder extends Seeder
             
         ]);
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'person_id'=> Person::inRandomOrder()->first()->id,
             'email' => 'admin@gmail.com',
             'password' => 'admin',
-          
         ]);
 
       
         
         $this->call(PersonSeeder::class);
         $this->call(RolSeeder::class);
+        $user->rol_id = 1;
+        $user->save();
         $this->call(UserSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(RolPageSeeder::class);
-        $this->call(LogSeeder::class);
+        // $this->call(LogSeeder::class);
     }
 }

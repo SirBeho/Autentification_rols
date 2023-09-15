@@ -15,11 +15,12 @@ class Rolpage extends Model
 
     protected $fillable = [
        
+        'name',    
+        'enlaced_to',
         'page_id',
         'rol_id',
-        'description',    
+        'order',    
         'create_by',      
-        'enlaced_to',      
         'update_by' 
     ];
 

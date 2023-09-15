@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log as ModelsLog;
 use App\Models\Rol;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RolController extends Controller
 {
@@ -23,7 +25,6 @@ class RolController extends Controller
         return $Rol;
     }
 
-    
     public function show($id)
     {
 
@@ -68,8 +69,12 @@ class RolController extends Controller
 
             
             Rol::create($request->all());
-           
-            return response()->json(['msj' => 'Rol creado correctamente'], 200);
+
+            $log = new LogController();
+            $respuesta = $log->create("Creo el rol ".$request->name);
+
+            return response()->json(['msj' => 'Rol creado correctamente','log' => $respuesta->original['msj']], 200);
+          
         
         } catch (QueryException $e) {
             $errormsj = $e->getMessage();

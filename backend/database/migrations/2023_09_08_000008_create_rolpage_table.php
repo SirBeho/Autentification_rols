@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('rol_page', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->unsignedBigInteger('enlaced_to')->nullable()->default(null);
             $table->unsignedBigInteger('page_id')->nullable()->default(null);
             $table->unsignedBigInteger('rol_id');
-            $table->unsignedBigInteger('enlaced_to')->nullable()->default(null);
-            $table->string('description');
+            $table->integer('order');
             $table->timestamps();
             $table->unsignedBigInteger('create_by');
             $table->unsignedBigInteger('update_by');

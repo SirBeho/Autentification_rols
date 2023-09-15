@@ -74,6 +74,12 @@ class PersonController extends Controller
             Person::create($request->all());
            
             return response()->json(['msj' => 'Person creado correctamente'], 200);
+
+            $log = new LogController();
+            $respuesta = $log->create("Ha creado la persona".$request->name." ".$request->lastname);
+            return response()->json(['msj' => 'Persona creada correctamente','log' => $respuesta->original['msj']], 200);
+
+
         
         } catch (QueryException $e) {
             $errormsj = $e->getMessage();

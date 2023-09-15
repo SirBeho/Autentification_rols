@@ -10,6 +10,7 @@ import Person from "./components/pages/Person";
 import Rol from "./components/pages/Rol";
 import Log from "./components/pages/Log";
 import Link from "./components/pages/Link";
+import User from "./components/pages/User";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/rol" element={ <Layout> <Rol/> </Layout>  }  />
           <Route path="/log" element={ <Layout> <Log/> </Layout>  }  />
           <Route path="/link" element={ <Layout> <Link/> </Layout>  }  />
+          <Route path="/user" element={ <Layout> <User/> </Layout>  }  />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { format } from 'date-fns';
 import axios from "axios";
 
-function Log() {
+function User() {
   const [datos, setDatos] = useState(null);
   const [msj, setMsj] = useState(JSON.parse(sessionStorage.getItem("msj")) || {});
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/logs")
+      .get("http://localhost:8000/api/users")
       .then((response) => {
-        console.log(response.data);
         setDatos(response.data);
       })
       .catch((error) => {
@@ -27,9 +25,9 @@ function Log() {
   }, [msj]);
 
   return (
-    <div className="flex flex-col items-center w-full px-8 pb-2">
+    <div className="flex flex-col w-full items-center">
       <section className="container px-4 mx-auto">
-        <div className="flex flex-col mt-10 ">
+        <div className="flex flex-col mt-10 w-11/12">
           <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
@@ -38,13 +36,12 @@ function Log() {
                     <strong>{valor}</strong>
                   </span>
                 ))}
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 ">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
                       <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <button className="flex items-center gap-x-3 focus:outline-none">
                           <span>#</span>
-
                           <svg className="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" strokeWidth="0.1" />
                             <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" strokeWidth="0.1" />
@@ -55,32 +52,11 @@ function Log() {
                       <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
                         Name
                       </th>
-
                       <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        User
+                        Email
                       </th>
                       <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        Description
-                      </th>
-
-                      <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        Date
-                      </th>
-
-                      <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        Time
-                      </th>
-
-                      <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        IP
-                      </th>
-
-                      <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        Browser
-                      </th>
-
-                      <th scope="col" className=" text-sm font-normal text-left  text-gray-500 dark:text-gray-400">
-                        SO
+                        Rol
                       </th>
                     </tr>
                   </thead>
@@ -89,19 +65,16 @@ function Log() {
                       datos.map((item, index) => (
                         <tr key={item.id}>
                           <td className="text-center">{index + 1}</td>
-                          <td>{item.user.person.name}</td>
-                          <td>{item.user.email}</td>
-                          <td><span className="w-80 flex">{item.description}</span></td>
-                          <td>{format(new Date(item.created_at), 'dd/MM/yyyy')}</td>
-                          <td>{format(new Date(item.created_at), 'hh:mm:ss a')}</td>
-                          <td>{item.ip}</td>
-                          <td>{item.browser}</td>
-                          <td>{item.so}</td>
+                          <td>{item.person.name + " " + item.person.lastname}</td>
+                          <td>{item.email}</td>
+                          <td>{item.rol.name}</td>
                         </tr>
                       ))
                     ) : (
-                      <tr className="w-full">Loaging ... </tr>
-                    )}{" "}
+                      <tr className="w-full">
+                        <td>Loaging ...</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -113,4 +86,4 @@ function Log() {
   );
 }
 
-export default Log;
+export default User;

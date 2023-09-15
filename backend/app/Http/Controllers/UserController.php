@@ -76,9 +76,13 @@ class UserController extends Controller
             }
 
            
-            User::create($request->all());
+            $User = User::create($request->all());
+            $User->load('person');
+            $User->load('rol');
            
-            return response()->json(['msj' => 'User creado correctamente'], 200);
+            $log = new LogController();
+            $respuesta = $log->create("Ha creado el usuario ".$request->email." para ".$User->person->name." con el rol ".$User->rol->name);
+            return response()->json(['msj' => 'Usuario creado correctamente','log' => $respuesta->original['msj']], 200);
         
         } catch (QueryException $e) {
             $errormsj = $e->getMessage();

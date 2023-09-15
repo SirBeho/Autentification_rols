@@ -18,10 +18,6 @@ Este sistema de gestión de rutas y roles es una aplicación que permite gestion
 - **Registro de Actividades:** Lleva un registro de las actividades de usuarios, como inicio de sesión y cambios en roles.
 - **Interfaz de Usuario Intuitiva:** Proporciona una interfaz de usuario amigable para administrar roles y rutas.
 
-## Requisitos Previos
-
-- Node.js y npm instalados en tu sistema.
-- Base de datos (por ejemplo, MySQL, PostgreSQL) configurada y accesible.
 
 ## Herramientas, Lenguajes y Tecnologías Utilizadas
 
@@ -46,8 +42,64 @@ Este sistema de gestión de rutas y roles ha sido desarrollado utilizando divers
 
 Estas tecnologías se combinan para crear un sistema de gestión de rutas y roles potente y seguro.
 
+## Requisitos previos
 
+Asegúrate de tener instalado lo siguiente en tu sistema antes de comenzar:
 
+- **PHP**: Lenguaje de programación utilizado en el backend.
+- **Composer**: Gestor de paquetes de PHP.
+- **Node.js**: Motor de JavaScript utilizado para ejecutar React en el frontend.
+- **npm**: Gestor de paquetes de Node.js.
+- **Git**: Sistema de control de versiones.
+- **MySQL** u otro sistema de gestión de bases de datos de tu elección.
+
+## Configuración del Proyecto
+
+1. Clona el repositorio:
+ 
+        git clone https://github.com/SirBeho/Autentification_rols
+
+### Primero configuramos el Fronten ###
+
+1. Navega al directorio del frontend:
+
+        cd frontend
+
+3. Instala las dependencias de React
+
+        npm install
+
+4. Inicia el servidor de desarrollo de React:
+
+        npm start
+
+### Ahora el backend ###
+
+1. Navega al directorio del backend:
+
+        cd backend
+
+2. Copia el archivo .env.example a .env
+
+3. Genera una nueva clave de aplicación:
+
+        php artisan key:generate
+3. Ejecuta las migraciones para crear la estructura de la base de datos:
+
+        php artisan migrate
+
+4. (Opcional) Corre los datos de prueva (seeders)
+
+        php artisan db:seed
+
+5. Inicia el servidor de desarrollo de Laravel:
+
+        php artisan serve
+
+### El proyecto esrá disponible en http://localhost ###
+
+### Uso ###
+Ahora puedes comenzar a trabajar en tu proyecto. El backend y el frontend se ejecutarán de forma independiente, y podrás acceder a ellos desde las URL mencionadas anteriormente.
 ## Autores
 
 ¡Esperamos que este sistema de gestión de rutas y roles sea útil para tu aplicación! Si tienes alguna pregunta o sugerencia, no dudes en abrir un problema o ponerte en contacto con nosotros.

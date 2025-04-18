@@ -81,9 +81,14 @@ Asegúrate de tener instalado lo siguiente en tu sistema antes de comenzar:
 
 2. Copia el archivo .env.example a .env
 
-3. Genera una nueva clave de aplicación:
+3. Instalar dependencia composer:
+
+        composer install
+
+3. Genera una nueva clave de aplicación y el secret del JWT:
 
         php artisan key:generate
+        php artisan jwt:secret
 3. Ejecuta las migraciones para crear la estructura de la base de datos:
 
         php artisan migrate
@@ -93,7 +98,6 @@ Asegúrate de tener instalado lo siguiente en tu sistema antes de comenzar:
         php artisan db:seed
 
 5. Inicia el servidor de desarrollo de Laravel:
-
         php artisan serve
 
 ### El proyecto esrá disponible en http://localhost ###

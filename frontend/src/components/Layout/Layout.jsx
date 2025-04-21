@@ -40,7 +40,7 @@ function identificarNavegador(userAgent) {
 export default function Layout({ children }) {
 
   const [sidebarOpen, setSidebarOpen] = useState(sessionStorage.getItem("sidebarOpen") == "true");
-  const [data, setData] = useState({});
+  const [data, setData] = useState( sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : null);
   const [aprove, setAprove] = useState(false);
   const validation = Validation();
 
@@ -49,16 +49,27 @@ export default function Layout({ children }) {
   }, [sidebarOpen]);
 
   useEffect(() => {
-    validation
-      .ValidationTokenPage()
-      .then((data) => {
-        setAprove(true);
+    //validar si data es null o undefined
+    console.log( data);
+    //validar si existe data.name 
+    if ( data?.id == undefined) {
+      console.log('no existe data.name');
+            validation.ValidationTokenPage().then((data) => {
+        
         setData(data);
+        sessionStorage.setItem("user", JSON.stringify(data));
+        setAprove(true);
+      //  debugger;
       })
       .catch((error) => {
         console.error(error);
         //navigatetoUrl("/");
       });
+    }else{
+      setAprove(true);
+    }
+   
+   
   }, []);
 
   if (!aprove) {
@@ -66,7 +77,7 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className="flex h-full  ">
+    <div className="flex h-full light-theme ">
       <SideBar sidebarController={[sidebarOpen, setSidebarOpen]} user={data} />
 
       <div className="flex flex-col w-full h-full min-h-screen justify-between bg-gray-200">

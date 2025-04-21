@@ -71,7 +71,7 @@ Asegúrate de tener instalado lo siguiente en tu sistema antes de comenzar:
 
 4. Inicia el servidor de desarrollo de React:
 
-        npm start
+        npm run dev
 
 ### Ahora el backend ###
 

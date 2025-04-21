@@ -30,7 +30,7 @@ export default function SideBar({ sidebarController, user }) {
   }, []);
 
   return (
-    <aside id="slidebar" onClick={() => setSidebarOpen(true)} className={`bg-gray-sl text-gray-100 border-gray-100 border-e ${sidebarOpen ? "w-60 toggle" : "w-14 "} transform duration-300 ease-out min-h-screen flex flex-col`}>
+    <aside id="slidebar" onClick={() => setSidebarOpen(true)} className={`  dark:bg-red-500   bg-gray-sl text-gray-100 border-gray-100 border-e ${sidebarOpen ? "w-60 toggle" : "w-14 "} transform duration-300 ease-out min-h-screen flex flex-col`}>
       <div className="flex items-center gap-2 h-12 px-4 py-2 border-b-[0.1px] ">
         <div className="w-6 h-6 rounded-full overflow-hidden  ">
           <img className=" max-w-[253%] m-[-50%-75%]" src="../pictures/logo.jpg" alt="" />

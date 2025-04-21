@@ -18,14 +18,17 @@ class RolPageController extends Controller
      */
     public function index()
     {
-        $RolPage = RolPage::where('status', 1)->get();
-        $RolPage->load('page');
-        $RolPage->load('rol');
-        $RolPage->load('enlaced.page');
-        $RolPage->load('create_by');
-        $RolPage->load('update_by');
-        $RolPage->load('linkeds.page');
-        return $RolPage;
+        $RolPage = RolPage::where('status', 1)
+        ->with([
+            'page',
+            'rol',
+            'enlaced.page',
+            'create_by',
+            'update_by',
+            'linkeds.page'
+        ])
+        ->get();
+        return response()->json($RolPage);
     }
 
     

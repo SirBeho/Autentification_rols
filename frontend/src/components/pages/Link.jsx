@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
+const CACHE_KEY = "rolpageData";
+
+
 function Log() {
   const [datos, setDatos] = useState(null);
   const [msj, setMsj] = useState(JSON.parse(sessionStorage.getItem("msj")) || {});
+  const [cachedData, setCachedData] = useState("Cache");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/rolpage")
-      .then((response) => {
-        console.log(response.data);
-        setDatos(response.data);
-      })
-      .catch((error) => {
-        const data = JSON.parse(error.request.response)["errors"] || JSON.parse(error.request.response);
-        setMsj(data);
-      });
+    const storedData = localStorage.getItem(CACHE_KEY);
+    if (storedData) {
+      setDatos(JSON.parse(storedData));
+    }
+
+    fetchLatestData();
   }, []);
+
+  const fetchLatestData = async () => {
+   
+    try {
+      console.log("Fetching data from API...");
+      const response = await axios.get("http://localhost:8000/api/rolpage");
+      console.log(response.data);
+      setDatos(response.data);
+      setCachedData("Online");
+      localStorage.setItem(CACHE_KEY, JSON.stringify(response.data));
+    } catch (error) {
+      const data = JSON.parse(error.request.response)["errors"] || JSON.parse(error.request.response);
+      setMsj(data);
+    } 
+  };
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,6 +44,7 @@ function Log() {
 
   return (
     <div className="flex flex-col items-center w-full px-8">
+      <span className="fixed top-14 right-4">{cachedData}</span>
       <section className="container px-4 mx-auto">
         <div className="flex flex-col mt-10 ">
           <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
@@ -82,8 +100,9 @@ function Log() {
                         </tr>
                       ))
                     ) : (
-                      <tr className="w-full">Loaging ... </tr>
-                    )}{" "}
+                      <tr><td colSpan="6" className="text-center py-4">Cargando datos...</td></tr>
+
+                    )}
                   </tbody>
                 </table>
               </div>
